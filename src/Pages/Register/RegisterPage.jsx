@@ -31,9 +31,13 @@ const RegisterPage = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         const name = e.target.name.value;
-        const photo = e.target.photo.value;
+        const photo = e.target.photo;
         const email = e.target.email.value;
         const password = e.target.password.value;
+        const file = photo.files[0]
+        console.log(file)
+
+
         if (password.length <= 6) {
             toast.error("please enter 6 digit password")
         }
@@ -57,7 +61,7 @@ const RegisterPage = () => {
                     .then(() => {
                         toast.success("Please verify your email address");
                         toast.success("Registration successful!");
-                        navigate("/auth/login")
+                        navigate("/login")
                     });
 
             })
@@ -69,7 +73,7 @@ const RegisterPage = () => {
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100">
-            <title>PawMart – Register</title>
+            <title>Blood Donation – Register</title>
             <div className="card w-full max-w-md bg-purple-50 rounded-3xl shadow-2xl p-8">
                 <h2 className="text-3xl font-bold text-center text-purple-700 mb-6">
                     Register Your Account
@@ -89,9 +93,9 @@ const RegisterPage = () => {
                     <div className="flex flex-col">
                         <label className="mb-1 font-semibold text-gray-700">Photo URL</label>
                         <input
-                            type="text" name="photo"
+                            type="file" name="photo"
                             placeholder="Photo URL"
-                            className="input  w-full border-purple-300 focus:border-purple-500 focus:ring focus:ring-purple-200 transition"
+                            className="input  w-full  border-purple-300 focus:border-purple-500 focus:ring focus:ring-purple-200 transition"
                         />
                     </div>
 
