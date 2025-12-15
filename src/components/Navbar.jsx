@@ -1,0 +1,134 @@
+import React, { useState } from 'react';
+import { useContext } from 'react';
+import { Link, NavLink } from 'react-router';
+import userIcon from "../assets/user.png"
+import { AuthContext } from '../provider/AuthProvider';
+import { toast, ToastContainer } from 'react-toastify';
+
+
+const Navbar = () => {
+    const { user, setUser, logOutUser } = useContext(AuthContext);
+    const [isChecked, setIsChecked] = useState(true);
+    const handleThemeChange = () => {
+        setIsChecked(!isChecked);
+
+        const html = document.querySelector("html");
+
+        if (isChecked) {
+            html.setAttribute("data-theme", "dark");
+        } else {
+            html.setAttribute("data-theme", "light");
+        }
+    };
+
+
+
+    const handleLogout = () => {
+        logOutUser()
+            .then(() => {
+                toast.success("Successfully Logged Out!");
+                setUser(null);
+            })
+            .catch(error => {
+                toast.error(`Logout Failed: ${error.code}`);
+            });
+    };
+
+
+    return (
+        <div className="navbar bg-base-100 shadow-sm lg:px-10">
+            <div className="navbar-start">
+                <div className="dropdown">
+                    <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /> </svg>
+                    </div>
+                    <ul
+                        tabIndex="-1"
+                        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+                        <NavLink className='font-semibold' to="/">Home</NavLink>
+                        <NavLink className='font-semibold' to="/">Pets & Supplies</NavLink>
+                        {
+                            user && (
+                                <>
+                                    <NavLink className='font-semibold' to="/profile">Profile</NavLink>
+                                    <NavLink className='font-semibold' to="/add-services">Add Service</NavLink>
+                                    <NavLink className='font-semibold' to="/my-services">My Service</NavLink>
+                                    <NavLink className='font-semibold' to="/my-orders">My Orders</NavLink>
+                                </>
+                            )
+                        }
+
+                    </ul>
+                </div>
+                <a className="lg:text-4xl text-2xl font-bold bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent">
+                    PawMART
+                </a>
+
+            </div>
+            <div className="navbar-center hidden lg:flex">
+                <ul className="menu menu-horizontal flex lg:gap-10  ">
+                    <NavLink className='font-semibold' to="/">Home</NavLink>
+                    <NavLink className='font-semibold' to="/">Pets & Supplies</NavLink>
+                    {
+                        user && (
+                            <>
+                                <NavLink className='font-semibold' to="/profile">Profile</NavLink>
+                                <NavLink className='font-semibold' to="/add-services">Add Service</NavLink>
+                                <NavLink className='font-semibold' to="/my-services">My Service</NavLink>
+                                <NavLink className='font-semibold' to="/my-orders">My Orders</NavLink>
+
+                            </>
+                        )
+                    }
+
+
+                </ul>
+            </div>
+            <div className="navbar-end lg:gap-5">
+                <label className="flex cursor-pointer gap-2">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round">
+                        <circle cx="12" cy="12" r="5" />
+                        <path
+                            d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4" />
+                    </svg>
+                    <input onClick={handleThemeChange} type="checkbox" value="synthwave" className="toggle theme-controller" />
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </label>
+                <img
+                    className="w-10 h-10 object-cover rounded-full"
+                    src={user?.photoURL ? user.photoURL : userIcon}
+                    alt={user?.displayName ? user.displayName : "Ashik"}
+                    title={user?.displayName ? user.displayName : "Guest User"}
+                />
+
+
+                {user ? <button onClick={handleLogout} className='btn'>Log Out</button> : <Link to="/login" className='btn'>Login</Link>}
+
+
+            </div>
+            <ToastContainer></ToastContainer>
+        </div>
+    );
+};
+
+export default Navbar;
