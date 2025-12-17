@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import { app } from '../firebase/firebase.config';
+import axios from 'axios';
 
 
 
@@ -19,6 +20,8 @@ export const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [role, setRole] = useState('')
+    console.log(role)
     if (loading) {
         <span className="loading loading-spinner loading-xl"></span>
     }
@@ -29,7 +32,7 @@ const AuthProvider = ({ children }) => {
     }
 
 
-    //    see current user 
+
 
     // see current user 
     useEffect(() => {
@@ -42,6 +45,14 @@ const AuthProvider = ({ children }) => {
         }
     }, [])
 
+    // get role er jonno useEffect 
+    useEffect(() => {
+        if (!user) return;
+        axios.get(`http://localhost:5000/users/role/${user.email}`)
+            .then(res => {
+                setRole(res.data.role)
+            })
+    }, [user])
 
     // update profile 
 

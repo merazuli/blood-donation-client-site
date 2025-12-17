@@ -4,6 +4,7 @@ import { sendEmailVerification } from 'firebase/auth';
 import { AuthContext } from '../../provider/AuthProvider';
 import { toast, ToastContainer } from 'react-toastify';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import axios from 'axios';
 
 
 
@@ -28,14 +29,14 @@ const RegisterPage = () => {
     }
 
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const name = e.target.name.value;
         const photo = e.target.photo;
         const email = e.target.email.value;
         const password = e.target.password.value;
         const file = photo.files[0]
-        console.log(file)
+        // console.log(file)
 
 
         if (password.length <= 6) {
@@ -46,28 +47,52 @@ const RegisterPage = () => {
             return;
         }
 
+        const res = await axios.post(`https://api.imgbb.com/1/upload?key=425e473eb9bb65f9ac6dd14c06658c4f`, { image: file }, {
+            headers: {
+                "Content-Type": "multipart/form-data"
+            }
+        })
+        const mainPhotoUrl = res.data.data.display_url;
 
-        createUser(email, password)
-            .then(result => {
-                const user = result.user;
+        const formData = {
+            name,
+            password,
+            email,
+            mainPhotoUrl,
+        }
+        if (res.data.success == true) {
+            createUser(email, password)
+                .then(result => {
+                    const user = result.user;
+                    // console.log(result.user)
 
-                return updateUserProfile({ displayName: name, photoURL: photo })
-                    .then(() => {
-                        setUser({ ...user, displayName: name, photoURL: photo });
+                    return updateUserProfile({ displayName: name, photoURL: mainPhotoUrl })
+                        .then(() => {
+                            setUser({ ...user, displayName: name, photoURL: mainPhotoUrl });
+                            axios.post('http://localhost:5000/users', formData)
+                                .then(res => {
+                                    console.log(res.data)
+                                })
+                                .catch(error => {
+                                    console.log(error)
+                                })
+                            return sendEmailVerification(user);
+                        })
+                        .then(() => {
+                            toast.success("Please verify your email address");
+                            toast.success("Registration successful!");
+
+                            navigate("/login")
+                        });
+
+                })
+                .catch(error => {
+                    toast.error(`Error: ${error.code}`);
+                });
+        }
 
 
-                        return sendEmailVerification(user);
-                    })
-                    .then(() => {
-                        toast.success("Please verify your email address");
-                        toast.success("Registration successful!");
-                        navigate("/login")
-                    });
 
-            })
-            .catch(error => {
-                toast.error(`Error: ${error.code}`);
-            });
 
     };
 
