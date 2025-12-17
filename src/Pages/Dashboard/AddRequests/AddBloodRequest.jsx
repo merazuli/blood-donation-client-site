@@ -1,5 +1,7 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../../provider/AuthProvider";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const AddBloodRequest = () => {
 
@@ -9,12 +11,35 @@ const AddBloodRequest = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         const form = e.target;
-        const name = form.name.value;
-        const receiverName = form.recipientName.value;
-        console.log('btn clicked')
 
-        console.log(name, receiverName)
+        const formData = {
+            requesterName: form.name.value,
+            requesterEmail: form.email.value,
+            recipientName: form.recipientName.value,
+            recipientDistrict: form.recipientDistrict.value,
+            recipientUpazila: form.recipientUpazila.value,
+            hospitalName: form.hospitalName.value,
+            fullAddress: form.fullAddress.value,
+            bloodGroup: form.bloodGroup.value,
+            donationDate: form.donationDate.value,
+            donationTime: form.donationTime.value,
+            requestMessage: form.requestMessage.value,
+            status: "pending",
+        };
+        axios.post('http://localhost:5000/donations', formData)
+            .then(res => {
+                if (res.data.acknowledged == true) {
+                    alert('Successfully Requested Process')
+                }
+
+            })
+            .catch(err => {
+                console.log(err)
+            })
+
+
     };
+
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-100 via-pink-100 to-red-100 p-6">
@@ -35,7 +60,7 @@ const AddBloodRequest = () => {
                     {/* Requester Email */}
                     <div className="flex flex-col">
                         <label className="mb-1 font-semibold text-gray-700">Requester Email</label>
-                        <input
+                        <input name="email"
                             type="email"
                             defaultValue={user?.email}
                             readOnly
