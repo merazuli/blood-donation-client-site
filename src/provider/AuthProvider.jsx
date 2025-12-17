@@ -21,7 +21,9 @@ const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [role, setRole] = useState('')
-    // console.log(role) 
+    const [districts, setDistricts] = useState([]);
+    const [upazila, setUpazila] = useState([])
+    // console.log(upazila)
     if (loading) {
         <span className="loading loading-spinner loading-xl"></span>
     }
@@ -86,6 +88,26 @@ const AuthProvider = ({ children }) => {
         return sendPasswordResetEmail(auth, email)
     }
 
+    // districts data  
+
+    useEffect(() => {
+        fetch("/districts.json")   // public থেকে fetch
+            .then(res => res.json())
+            .then(data => {
+                setDistricts(data)
+            })
+            .catch(err => console.error(err));
+    }, []);
+    // upazilas data  
+
+    useEffect(() => {
+        fetch("/upazila.json")   // public থেকে fetch
+            .then(res => res.json())
+            .then(data => {
+                setUpazila(data)
+            })
+            .catch(err => console.error(err));
+    }, []);
 
 
 
@@ -104,6 +126,8 @@ const AuthProvider = ({ children }) => {
         updateUserProfile,
         forget,
         role,
+        districts,
+        upazila,
     }
 
 

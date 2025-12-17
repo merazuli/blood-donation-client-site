@@ -36,8 +36,9 @@ const RegisterPage = () => {
         const email = e.target.email.value;
         const password = e.target.password.value;
         const role = e.target.role.value;
+        const blood = e.target.bloodGroup.value;
         const file = photo.files[0]
-        console.log(role)
+        console.log(blood)
 
 
         if (password.length <= 6) {
@@ -61,6 +62,7 @@ const RegisterPage = () => {
             email,
             mainPhotoUrl,
             role,
+            blood,
         }
         if (res.data.success == true) {
             createUser(email, password)
@@ -115,6 +117,15 @@ const RegisterPage = () => {
                             className="input  w-full border-purple-300 focus:border-purple-500 focus:ring focus:ring-purple-200 transition"
                         />
                     </div>
+                    {/* Email */}
+                    <div className="flex flex-col">
+                        <label className="mb-1 font-semibold text-gray-700">Email</label>
+                        <input
+                            type="email" name="email"
+                            placeholder="Your Email"
+                            className="input  w-full border-purple-300 focus:border-purple-500 focus:ring focus:ring-purple-200 transition" required
+                        />
+                    </div>
 
                     {/* Photo URL */}
                     <div className="flex flex-col">
@@ -126,22 +137,46 @@ const RegisterPage = () => {
                         />
                     </div>
                     {/* Role  */}
-                    <select defaultValue="Pick a color" name="role" className="select  w-full border-purple-300 focus:border-purple-500 focus:ring focus:ring-purple-200 transition">
-                        <option disabled={true}>Select Your Role</option>
-                        <option>Donor</option>
-                        <option>Volunteer </option>
-                    </select>
-
-
-                    {/* Email */}
-                    <div className="flex flex-col">
-                        <label className="mb-1 font-semibold text-gray-700">Email</label>
-                        <input
-                            type="email" name="email"
-                            placeholder="Your Email"
-                            className="input  w-full border-purple-300 focus:border-purple-500 focus:ring focus:ring-purple-200 transition" required
-                        />
+                    <div className="form-control w-full">
+                        <label className="label">
+                            <span className="label-text font-medium">Your Role</span>
+                        </label>
+                        <select
+                            defaultValue="Select Your Role"
+                            name="role"
+                            className="select w-full border-purple-300 focus:border-purple-500 focus:ring focus:ring-purple-200 transition"
+                        >
+                            <option disabled>Select Your Role</option>
+                            <option>Donor</option>
+                            <option>Volunteer</option>
+                        </select>
                     </div>
+
+                    {/* Blood Group */}
+                    <div className="form-control w-full">
+                        <label className="label">
+                            <span className="label-text font-medium">Your Blood Group</span>
+                        </label>
+                        <select
+                            defaultValue="Select Your Blood Group"
+                            name="bloodGroup"
+                            className="select w-full border-purple-300 focus:border-purple-500 focus:ring focus:ring-purple-200 transition"
+                        >
+                            <option disabled>Select Your Blood Group</option>
+                            <option>A+</option>
+                            <option>A-</option>
+                            <option>B+</option>
+                            <option>B-</option>
+                            <option>AB+</option>
+                            <option>AB-</option>
+                            <option>O+</option>
+                            <option>O-</option>
+                        </select>
+                    </div>
+
+
+
+
 
                     {/* Password */}
                     <div className="flex flex-col relative">

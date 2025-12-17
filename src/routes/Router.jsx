@@ -4,6 +4,9 @@ import Home from "../Pages/Home/home";
 import LoginPage from "../Pages/Login/LoginPage";
 import RegisterPage from "../Pages/Register/RegisterPage";
 import DashboardLayout from "../DashboardLayout/DashboardLayout";
+import MainDashboard from "../Pages/Dashboard/MaindDashboard/MainDashboard";
+import AddBloodRequest from "../Pages/Dashboard/AddRequests/AddBloodRequest";
+
 
 
 const router = createBrowserRouter([
@@ -26,8 +29,18 @@ const router = createBrowserRouter([
         ]
     },
     {
-        path: "/dashboard",
-        element: <DashboardLayout></DashboardLayout>
+        path: "/",
+        element: <DashboardLayout></DashboardLayout>,
+        children: [
+            {
+                path: "/dashboard",
+                element: <MainDashboard></MainDashboard>,
+            },
+            {
+                path: "/dashboard/create-donation-request",
+                element: <AddBloodRequest></AddBloodRequest>,
+            }
+        ]
     }
 ]);
 

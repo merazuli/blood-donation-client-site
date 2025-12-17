@@ -78,6 +78,7 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end gap-5">
+                <Link to={'/dashboard'} className='btn'>Dashboard</Link>
                 <label className="flex cursor-pointer gap-2">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
