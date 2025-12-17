@@ -35,8 +35,9 @@ const RegisterPage = () => {
         const photo = e.target.photo;
         const email = e.target.email.value;
         const password = e.target.password.value;
+        const role = e.target.role.value;
         const file = photo.files[0]
-        // console.log(file)
+        console.log(role)
 
 
         if (password.length <= 6) {
@@ -59,6 +60,7 @@ const RegisterPage = () => {
             password,
             email,
             mainPhotoUrl,
+            role,
         }
         if (res.data.success == true) {
             createUser(email, password)
@@ -123,6 +125,13 @@ const RegisterPage = () => {
                             className="input  w-full  border-purple-300 focus:border-purple-500 focus:ring focus:ring-purple-200 transition"
                         />
                     </div>
+                    {/* Role  */}
+                    <select defaultValue="Pick a color" name="role" className="select  w-full border-purple-300 focus:border-purple-500 focus:ring focus:ring-purple-200 transition">
+                        <option disabled={true}>Select Your Role</option>
+                        <option>Donor</option>
+                        <option>Volunteer </option>
+                    </select>
+
 
                     {/* Email */}
                     <div className="flex flex-col">

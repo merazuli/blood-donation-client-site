@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
-import { useContext } from 'react';
-import { Link, NavLink } from 'react-router';
-import userIcon from "../assets/user.png"
-import { AuthContext } from '../provider/AuthProvider';
+import React, { useContext, useState } from 'react';
+import { AuthContext } from '../../provider/AuthProvider';
 import { toast, ToastContainer } from 'react-toastify';
-
+import { Link, NavLink } from 'react-router';
+import userIcon from '../../assets/user.png'
 
 const Navbar = () => {
     const { user, setUser, logOutUser } = useContext(AuthContext);
@@ -51,31 +49,26 @@ const Navbar = () => {
                             user && (
                                 <>
                                     <NavLink className='font-semibold' to="/profile">Profile</NavLink>
-                                    <NavLink className='font-semibold' to="/add-services">Add Service</NavLink>
-                                    <NavLink className='font-semibold' to="/my-services">My Service</NavLink>
-                                    <NavLink className='font-semibold' to="/my-orders">My Orders</NavLink>
+
                                 </>
                             )
                         }
 
                     </ul>
                 </div>
-                <a className="lg:text-4xl text-2xl font-bold bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent">
+                <a className="lg:text-4xl text-3xl font-bold bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent">
                     PawMART
                 </a>
 
             </div>
             <div className="navbar-center hidden lg:flex">
-                <ul className="menu menu-horizontal flex lg:gap-10  ">
+                <ul className="menu menu-horizontal flex gap-10  px-1">
                     <NavLink className='font-semibold' to="/">Home</NavLink>
-                    <NavLink className='font-semibold' to="/">Pets & Supplies</NavLink>
                     {
                         user && (
                             <>
                                 <NavLink className='font-semibold' to="/profile">Profile</NavLink>
-                                <NavLink className='font-semibold' to="/add-services">Add Service</NavLink>
-                                <NavLink className='font-semibold' to="/my-services">My Service</NavLink>
-                                <NavLink className='font-semibold' to="/my-orders">My Orders</NavLink>
+
 
                             </>
                         )
@@ -84,7 +77,7 @@ const Navbar = () => {
 
                 </ul>
             </div>
-            <div className="navbar-end lg:gap-5">
+            <div className="navbar-end gap-5">
                 <label className="flex cursor-pointer gap-2">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"

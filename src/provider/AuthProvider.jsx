@@ -21,7 +21,7 @@ const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [role, setRole] = useState('')
-    console.log(role)
+    // console.log(role) 
     if (loading) {
         <span className="loading loading-spinner loading-xl"></span>
     }
@@ -103,6 +103,7 @@ const AuthProvider = ({ children }) => {
         googleSignIn,
         updateUserProfile,
         forget,
+        role,
     }
 
 
