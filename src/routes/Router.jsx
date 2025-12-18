@@ -6,6 +6,7 @@ import RegisterPage from "../Pages/Register/RegisterPage";
 import DashboardLayout from "../DashboardLayout/DashboardLayout";
 import MainDashboard from "../Pages/Dashboard/MaindDashboard/MainDashboard";
 import AddBloodRequest from "../Pages/Dashboard/AddRequests/AddBloodRequest";
+import ManageProduct from "../Pages/Dashboard/ManageProduct/ManageProduct";
 
 
 
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
             {
                 path: "/dashboard/create-donation-request",
                 element: <AddBloodRequest></AddBloodRequest>,
+            },
+            {
+                path: "/dashboard/my-donation-request",
+                element: <ManageProduct></ManageProduct>
             }
         ]
     }

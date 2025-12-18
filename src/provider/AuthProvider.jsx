@@ -5,9 +5,6 @@ import axios from 'axios';
 
 
 
-
-
-
 const auth = getAuth(app);
 
 // googleProvider 
@@ -23,7 +20,7 @@ const AuthProvider = ({ children }) => {
     const [role, setRole] = useState('')
     const [districts, setDistricts] = useState([]);
     const [upazila, setUpazila] = useState([])
-    // console.log(upazila)
+    console.log(user)
     if (loading) {
         <span className="loading loading-spinner loading-xl"></span>
     }

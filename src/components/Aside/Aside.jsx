@@ -17,7 +17,7 @@ const Aside = () => {
         "bg-gray-300 text-gray-900 font-semibold";
 
     return (
-        <aside className="w-64 min-h-screen bg-gray-100 border-r border-gray-300 flex flex-col">
+        <aside className="w-64 min-h-screen bg-gray-300 border-r border-gray-300 flex flex-col">
 
             {/* ===== Brand / Logo ===== */}
             <div className="p-6 border-b border-gray-300 text-center bg-gray-200">
@@ -33,8 +33,8 @@ const Aside = () => {
             </div>
 
             {/* ===== Admin Info ===== */}
-            <div className="p-4 border-b border-gray-300 bg-gray-100">
-                {/* <div className="flex items-center gap-3">
+            {/* <div className="p-4 border-b border-gray-300 bg-gray-100">
+                <div className="flex items-center gap-3">
                     <div className="avatar placeholder">
                         <div className="bg-gray-400 text-white rounded-full w-10">
                             <span>A</span>
@@ -48,8 +48,8 @@ const Aside = () => {
                             admin@system.com
                         </p>
                     </div>
-                </div> */}
-            </div>
+                </div>
+            </div> */}
 
             {/* ===== Menu ===== */}
             <ul className="menu p-4 flex-1 gap-1 text-gray-700">
@@ -110,7 +110,22 @@ const Aside = () => {
                         }
                     >
                         <Droplet size={18} />
-                        Blood Requests
+                        Add Blood Requests
+                    </NavLink>
+                </li>
+                {/* Manage Request  */}
+                <li>
+                    <NavLink
+                        to="/dashboard/my-donation-request"
+                        className={({ isActive }) =>
+                            `${navItem} ${isActive
+                                ? activeItem
+                                : "hover:bg-gray-200"
+                            }`
+                        }
+                    >
+                        <Droplet size={18} />
+                        Manage Blood Requests
                     </NavLink>
                 </li>
 

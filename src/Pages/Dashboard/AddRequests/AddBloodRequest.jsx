@@ -1,11 +1,10 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { AuthContext } from "../../../provider/AuthProvider";
-import axios from "axios";
-import { toast } from "react-toastify";
+import useAxios from "./Hooks/useAxios";
 
 const AddBloodRequest = () => {
-
     const { user, districts, upazila } = useContext(AuthContext);
+    const axiosInstance = useAxios()
 
 
     const handleSubmit = (e) => {
@@ -26,7 +25,7 @@ const AddBloodRequest = () => {
             requestMessage: form.requestMessage.value,
             status: "pending",
         };
-        axios.post('http://localhost:5000/donations', formData)
+        axiosInstance.post('/requests', formData)
             .then(res => {
                 if (res.data.acknowledged == true) {
                     alert('Successfully Requested Process')
@@ -44,7 +43,7 @@ const AddBloodRequest = () => {
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-100 via-pink-100 to-red-100 p-6">
             <div className="w-full max-w-3xl bg-white rounded-3xl shadow-2xl p-8 border border-purple-200">
-                <h1 className="text-3xl font-bold text-center text-purple-700 mb-6">Create Donation Request</h1>
+                <h1 className="text-3xl font-bold text-center text-purple-700 mb-6">Blood Donation Request Form</h1>
                 <form onSubmit={handleSubmit} className="space-y-4">
                     {/* Requester Name */}
                     <div className="flex flex-col">
@@ -92,7 +91,7 @@ const AddBloodRequest = () => {
                             className="select w-full border-purple-300 focus:border-purple-500 focus:ring focus:ring-purple-200 rounded-xl transition"
                             required
                         >
-                            <option disabled value="">Select District</option>
+                            <option disabled value="">---Select District---</option>
                             {districts?.map((district) => (
                                 <option key={district?.id
                                 } value={district?.name}>{district?.name}</option>
@@ -111,11 +110,11 @@ const AddBloodRequest = () => {
                             className="select w-full border-purple-300 focus:border-purple-500 focus:ring focus:ring-purple-200 rounded-xl transition"
                             required
                         >
-                            <option disabled value="">Select Upazila</option>
+                            <option disabled value="">---Select Upazila---</option>
 
                             {
                                 upazila.map((upazil) => (
-                                    <option key={upazil.id} value={upazil}>{upazil.name}</option>
+                                    <option key={upazil.id} value={upazil.name}>{upazil.name}</option>
                                 ))
                             }
                         </select>

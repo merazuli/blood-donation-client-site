@@ -9,11 +9,13 @@ import axios from 'axios';
 
 
 const RegisterPage = () => {
-    const { createUser, setUser, updateUserProfile, googleSignIn } = useContext(AuthContext);
+    const { createUser, setUser, updateUserProfile, googleSignIn, districts, upazila } = useContext(AuthContext);
     const [show, setShow] = useState(false)
 
     const navigate = useNavigate()
     // handle login with google 
+
+    // console.log(upazila)
 
     const googleLogin = () => {
         googleSignIn()
@@ -35,10 +37,11 @@ const RegisterPage = () => {
         const photo = e.target.photo;
         const email = e.target.email.value;
         const password = e.target.password.value;
-        const role = e.target.role.value;
         const blood = e.target.bloodGroup.value;
+        const district = e.target.recipientDistrict.value;
+        const upazila = e.target.recipientUpazila.value;
         const file = photo.files[0]
-        console.log(blood)
+        // console.log(upazila)
 
 
         if (password.length <= 6) {
@@ -61,9 +64,11 @@ const RegisterPage = () => {
             password,
             email,
             mainPhotoUrl,
-            role,
             blood,
+            district,
+            upazila,
         }
+
         if (res.data.success == true) {
             createUser(email, password)
                 .then(result => {
@@ -136,21 +141,7 @@ const RegisterPage = () => {
                             className="input  w-full  border-purple-300 focus:border-purple-500 focus:ring focus:ring-purple-200 transition"
                         />
                     </div>
-                    {/* Role  */}
-                    <div className="form-control w-full">
-                        <label className="label">
-                            <span className="label-text font-medium">Your Role</span>
-                        </label>
-                        <select
-                            defaultValue="Select Your Role"
-                            name="role"
-                            className="select w-full border-purple-300 focus:border-purple-500 focus:ring focus:ring-purple-200 transition"
-                        >
-                            <option disabled>Select Your Role</option>
-                            <option>Donor</option>
-                            <option>Volunteer</option>
-                        </select>
-                    </div>
+
 
                     {/* Blood Group */}
                     <div className="form-control w-full">
@@ -173,10 +164,45 @@ const RegisterPage = () => {
                             <option>O-</option>
                         </select>
                     </div>
+                    {/*  District */}
+                    <div className="form-control w-full">
+                        <label className="label">
+                            <span className="label-text font-medium">Your District</span>
+                        </label>
+                        <select
+                            name="recipientDistrict"
+                            defaultValue=""
+                            className="select w-full border-purple-300 focus:border-purple-500 focus:ring focus:ring-purple-200 rounded-xl transition"
+                            required
+                        >
+                            <option disabled value="">Select Your District</option>
+                            {districts?.map((district) => (
+                                <option key={district?.id
+                                } value={district?.name}>{district?.name}</option>
+                            ))}
+                        </select>
+                    </div>
+                    {/* Upazila */}
+                    <div className="form-control w-full">
+                        <label className="label">
+                            <span className="label-text font-medium">Your Upazila</span>
+                        </label>
+                        <select
+                            name="recipientUpazila"
+                            defaultValue=""
+                            className="select w-full border-purple-300 focus:border-purple-500 focus:ring focus:ring-purple-200 rounded-xl transition"
+                            required
+                        >
+                            <option disabled value="">Select Your Upazila</option>
 
+                            {
+                                upazila.map((upazil) => (
+                                    <option key={upazil?.id} value={upazil?.name}>{upazil?.name}</option>
 
-
-
+                                ))
+                            }
+                        </select>
+                    </div>
 
                     {/* Password */}
                     <div className="flex flex-col relative">
