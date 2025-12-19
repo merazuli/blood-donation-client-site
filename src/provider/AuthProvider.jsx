@@ -17,10 +17,11 @@ export const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [roleLoading, setRoleLoading] = useState(true);
     const [role, setRole] = useState('')
     const [districts, setDistricts] = useState([]);
     const [upazila, setUpazila] = useState([])
-    console.log(user)
+    // console.log(user)
     if (loading) {
         <span className="loading loading-spinner loading-xl"></span>
     }
@@ -49,7 +50,8 @@ const AuthProvider = ({ children }) => {
         if (!user) return;
         axios.get(`http://localhost:5000/users/role/${user.email}`)
             .then(res => {
-                setRole(res.data.role)
+                setRole(res.data.role);
+                setRoleLoading(false);
             })
     }, [user])
 
@@ -115,6 +117,7 @@ const AuthProvider = ({ children }) => {
     // pass data 
     const authData = {
         user,
+        loading,
         createUser,
         setUser,
         logOutUser,
@@ -125,6 +128,8 @@ const AuthProvider = ({ children }) => {
         role,
         districts,
         upazila,
+        roleLoading,
+        setRoleLoading,
     }
 
 

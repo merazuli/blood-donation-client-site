@@ -40,6 +40,7 @@ const LoginPage = () => {
             .then(result => {
                 const user = result.user;
                 toast.success("Login Success")
+                navigate('/dashboard')
                 setUser(user);
                 if (!user.emailVerified) {
                     toast('please verify your email address')
