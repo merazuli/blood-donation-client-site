@@ -71,7 +71,7 @@ const Aside = () => {
 
                 <li>
                     <NavLink
-                        to="/dashboard/users"
+                        to="/dashboard/all-users"
                         className={({ isActive }) =>
                             `${navItem} ${isActive
                                 ? activeItem

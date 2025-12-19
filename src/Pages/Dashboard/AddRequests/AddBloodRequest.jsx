@@ -1,10 +1,11 @@
 import { useContext } from "react";
 import { AuthContext } from "../../../provider/AuthProvider";
 import useAxios from "./Hooks/useAxios";
+import useAxiosSecure from "./Hooks/useAxiosSecure";
 
 const AddBloodRequest = () => {
     const { user, districts, upazila } = useContext(AuthContext);
-    const axiosInstance = useAxios()
+    const axiosSecure = useAxiosSecure();
 
 
     const handleSubmit = (e) => {
@@ -25,7 +26,7 @@ const AddBloodRequest = () => {
             requestMessage: form.requestMessage.value,
             status: "pending",
         };
-        axiosInstance.post('/requests', formData)
+        axiosSecure.post('/requests', formData)
             .then(res => {
                 if (res.data.acknowledged == true) {
                     alert('Successfully Requested Process')

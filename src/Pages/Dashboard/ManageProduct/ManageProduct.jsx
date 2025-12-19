@@ -7,9 +7,11 @@ const ManageProduct = () => {
     const axiosInstance = useAxios();
     const { user } = useContext(AuthContext);
 
+    // console.log(requests)
+
 
     useEffect(() => {
-        axiosInstance.get(`/admin/donations/${user?.email}`)
+        axiosInstance.get(`/admin/requests/${user?.email}`)
             .then(res => {
                 setRequests(res.data)
             })
