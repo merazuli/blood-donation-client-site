@@ -80,7 +80,7 @@ const Aside = () => {
                         }
                     >
                         <Users size={18} />
-                        Manage Users
+                        All Users
                     </NavLink>
                 </li>
 

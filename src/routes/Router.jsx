@@ -7,6 +7,8 @@ import DashboardLayout from "../DashboardLayout/DashboardLayout";
 import MainDashboard from "../Pages/Dashboard/MaindDashboard/MainDashboard";
 import AddBloodRequest from "../Pages/Dashboard/AddRequests/AddBloodRequest";
 import ManageProduct from "../Pages/Dashboard/ManageProduct/ManageProduct";
+import AllUsers from "../Pages/All Users/AllUsers";
+import PrivateRoute from "../provider/PrivateRoute";
 
 
 
@@ -31,7 +33,7 @@ const router = createBrowserRouter([
     },
     {
         path: "/",
-        element: <DashboardLayout></DashboardLayout>,
+        element: <PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
         children: [
             {
                 path: "/dashboard",
@@ -43,7 +45,11 @@ const router = createBrowserRouter([
             },
             {
                 path: "/dashboard/my-donation-request",
-                element: <ManageProduct></ManageProduct>
+                element: <ManageProduct></ManageProduct>,
+            },
+            {
+                path: "/dashboard/all-users",
+                element: <AllUsers></AllUsers>
             }
         ]
     }
