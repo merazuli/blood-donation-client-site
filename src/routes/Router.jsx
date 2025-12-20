@@ -4,11 +4,11 @@ import Home from "../Pages/Home/home";
 import LoginPage from "../Pages/Login/LoginPage";
 import RegisterPage from "../Pages/Register/RegisterPage";
 import DashboardLayout from "../DashboardLayout/DashboardLayout";
-import MainDashboard from "../Pages/Dashboard/MaindDashboard/MainDashboard";
 import AddBloodRequest from "../Pages/Dashboard/AddRequests/AddBloodRequest";
-import ManageProduct from "../Pages/Dashboard/ManageProduct/ManageProduct";
-import AllUsers from "../Pages/All Users/AllUsers";
 import PrivateRoute from "../provider/PrivateRoute";
+import MyRequest from "../Pages/Dashboard/MyRequest/MyRequest";
+import MainDashboard from "../Pages/Dashboard/MaindDashboard/MainDashboard";
+import AllUsers from "../Pages/User/AllUsers";
 
 
 
@@ -45,7 +45,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/dashboard/my-donation-request",
-                element: <ManageProduct></ManageProduct>,
+                element: <MyRequest></MyRequest>
             },
             {
                 path: "/dashboard/all-users",

@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import useAxios from '../AddRequests/Hooks/useAxios';
 import { AuthContext } from '../../../provider/AuthProvider';
 
-const ManageProduct = () => {
+const MyRequest = () => {
     const [requests, setRequests] = useState([]);
     const axiosInstance = useAxios();
     const { user } = useContext(AuthContext);
@@ -52,4 +52,4 @@ const ManageProduct = () => {
     );
 };
 
-export default ManageProduct;
+export default MyRequest;
