@@ -11,6 +11,7 @@ import MainDashboard from "../Pages/Dashboard/MaindDashboard/MainDashboard";
 import AllUsers from "../Pages/User/AllUsers";
 import Donate from "../Pages/Donate/Donate";
 import PaymentSuccess from "../Pages/PaymentSuccess/PaymentSuccess";
+import PaymentCancelled from "../Pages/PaymentCancell/PaymentCancelled";
 
 
 
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
             {
                 path: '/payment-success',
                 Component: PaymentSuccess,
+            },
+            {
+                path: '/payment-cancelled',
+                Component: PaymentCancelled,
             }
         ]
     },
