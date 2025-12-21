@@ -9,6 +9,8 @@ import PrivateRoute from "../provider/PrivateRoute";
 import MyRequest from "../Pages/Dashboard/MyRequest/MyRequest";
 import MainDashboard from "../Pages/Dashboard/MaindDashboard/MainDashboard";
 import AllUsers from "../Pages/User/AllUsers";
+import Donate from "../Pages/Donate/Donate";
+import PaymentSuccess from "../Pages/PaymentSuccess/PaymentSuccess";
 
 
 
@@ -28,6 +30,14 @@ const router = createBrowserRouter([
             {
                 path: '/register',
                 Component: RegisterPage,
+            },
+            {
+                path: '/donate',
+                Component: Donate,
+            },
+            {
+                path: '/payment-success',
+                Component: PaymentSuccess,
             }
         ]
     },
@@ -52,7 +62,8 @@ const router = createBrowserRouter([
                 element: <AllUsers></AllUsers>
             }
         ]
-    }
+    },
+
 ]);
 
 export default router;

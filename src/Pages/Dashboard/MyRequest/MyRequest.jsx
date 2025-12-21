@@ -16,7 +16,7 @@ const MyRequest = () => {
     useEffect(() => {
         axiosSecure.get(`/my-requests?page=${currentPage - 1}&size=${itemPerPage}`)
             .then(res => {
-                console.log(res.data)
+                // console.log(res.data)
                 setRequests(res.data.request)
                 setTotalRequest(res.data.totalRequest)
             })

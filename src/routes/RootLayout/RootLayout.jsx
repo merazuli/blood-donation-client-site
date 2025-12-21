@@ -1,6 +1,7 @@
 import React from 'react';
 import { Outlet } from 'react-router';
 import Navbar from '../../components/navbar/Navbar';
+import Banner from '../../components/Banner/Banner';
 
 const RootLayout = () => {
     return (
