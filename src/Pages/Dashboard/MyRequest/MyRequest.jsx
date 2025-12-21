@@ -1,25 +1,40 @@
 import React, { useContext, useEffect, useState } from 'react';
-import useAxios from '../AddRequests/Hooks/useAxios';
 import { AuthContext } from '../../../provider/AuthProvider';
+import useAxiosSecure from '../AddRequests/Hooks/useAxiosSecure';
+
 
 const MyRequest = () => {
     const [requests, setRequests] = useState([]);
-    const axiosInstance = useAxios();
+    const [totalRequest, setTotalRequest] = useState(0)
+    const [itemPerPage, setItemPerPage] = useState(10);
+    const [currentPage, setCurrentPage] = useState(1)
     const { user } = useContext(AuthContext);
+    const axiosSecure = useAxiosSecure();
 
     // console.log(requests)
 
 
     useEffect(() => {
-        axiosInstance.get(`/admin/requests/${user?.email}`)
+        axiosSecure.get(`/my-requests?page=${currentPage - 1}&size=${itemPerPage}`)
             .then(res => {
-                setRequests(res.data)
+                console.log(res.data)
+                setRequests(res.data.request)
+                setTotalRequest(res.data.totalRequest)
             })
             .catch(err => {
                 console.log(err)
             })
 
-    }, [axiosInstance, user?.email])
+    }, [axiosSecure, currentPage, itemPerPage])
+
+    const numberOfPages = Math.ceil(totalRequest / itemPerPage);
+    const pages = [...Array(numberOfPages).keys().map(e => e + 1)];
+
+    console.log(pages)
+
+    // console.log(totalRequest, requests)
+
+
 
     return (
         <div>
@@ -28,26 +43,27 @@ const MyRequest = () => {
                     {/* head */}
                     <thead>
                         <tr>
-                            <th>SL:</th>
-                            <th>Name</th>
-                            <th>Job</th>
-                            <th>Favorite Color</th>
+                            <th>#</th>
+                            <th>Recipient Name</th>
+                            <th>Hospital Name</th>
+                            <th>Blood Group</th>
                         </tr>
                     </thead>
                     <tbody>
                         {/* row 1 */}
                         {
-                            requests.map((request, index) => <tr key={request._id}>
+                            requests?.map((request, index) => <tr key={request._id}>
                                 <th>{index + 1}</th>
-                                <td>Cy Ganderton</td>
-                                <td>Quality Control Specialist</td>
-                                <td>Blue</td>
+                                <td>{request?.recipientName}</td>
+                                <td>{request?.hospitalName}</td>
+                                <td>{request?.bloodGroup}</td>
                             </tr>)
                         }
 
                     </tbody>
                 </table>
             </div>
+            Prev 1 2 3 4 Next
         </div>
     );
 };

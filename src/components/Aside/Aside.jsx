@@ -139,7 +139,7 @@ const Aside = () => {
                         }
                     >
                         <Droplet size={18} />
-                        All Blood Requests
+                        My Blood Requests
                     </NavLink>
                 </li>
 

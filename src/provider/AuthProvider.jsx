@@ -22,7 +22,7 @@ const AuthProvider = ({ children }) => {
     const [userStatus, userSetStatus] = useState('');
     const [districts, setDistricts] = useState([]);
     const [upazila, setUpazila] = useState([])
-    // console.log(userStatus)
+    console.log(user)
     if (loading) {
         <span className="loading loading-spinner loading-xl"></span>
     }
