@@ -1,9 +1,154 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { AuthContext } from '../../../provider/AuthProvider';
+import useAxiosSecure from '../AddRequests/Hooks/useAxiosSecure';
+import { Link, useNavigate } from 'react-router';
 
 const MainDashboard = () => {
+    const { user } = useContext(AuthContext);
+    const [myRequests, setMyRequests] = useState([]);
+    const axiosSecure = useAxiosSecure();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        axiosSecure.get('/my-requests')
+            .then(res => {
+                setMyRequests(res.data.request.slice(0, 3));
+            });
+    }, [axiosSecure]);
+
+    const handleDelete = (id) => {
+        // Delete logic here
+    };
+
+    const handleStatusUpdate = (id, status) => {
+        // Status update logic here
+    };
+
     return (
-        <div>
-            main dashboard
+        <div className="p-6 bg-gray-50 min-h-screen">
+            {/* Welcome Section */}
+            <div className="mb-6">
+                <h1 className="text-2xl font-bold text-[#435585]">
+                    Welcome, {user?.displayName} 👋
+                </h1>
+                <p className="text-gray-500">
+                    Thank you for being a lifesaver.
+                </p>
+            </div>
+
+            {/* Recent Donation Requests */}
+            {myRequests.length > 0 && (
+                <div className="bg-white shadow rounded-lg p-4">
+                    <h2 className="text-xl font-semibold mb-4 text-[#435585]">
+                        My Recent Donation Requests
+                    </h2>
+
+                    <div className="overflow-x-auto">
+                        <table className="table w-full">
+                            <thead className="bg-[#435585] text-white">
+                                <tr>
+                                    <th>Recipient</th>
+                                    <th>Location</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Blood</th>
+                                    <th>Status</th>
+                                    <th>Donor Info</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {myRequests.map(req => (
+                                    <tr key={req._id} className="hover:bg-gray-100">
+                                        <td>{req.recipientName}</td>
+                                        <td>{req.recipientDistrict}, {req.recipientUpazila}</td>
+                                        <td>{req.donationDate}</td>
+                                        <td>{req.donationTime}</td>
+                                        <td>
+                                            <span className="px-3 py-1 rounded-full bg-red-100 text-red-600 font-semibold text-sm">
+                                                {req.bloodGroup}
+                                            </span>
+                                        </td>
+
+                                        <td>
+                                            <span className={`px-2 py-1 rounded-full text-sm font-semibold
+                                                ${req.status === "pending" ? "bg-yellow-100 text-yellow-700" : ""}
+                                                ${req.status === "inprogress" ? "bg-blue-100 text-blue-700" : ""}
+                                                ${req.status === "done" ? "bg-green-100 text-green-700" : ""}
+                                                ${req.status === "canceled" ? "bg-red-100 text-red-700" : ""}
+                                            `}>
+                                                {req.status}
+                                            </span>
+                                        </td>
+
+                                        {/* Donor Info */}
+                                        <td>
+                                            {req.status === "inprogress" ? (
+                                                <div>
+                                                    <p>{req.donorName}</p>
+                                                    <p className="text-xs text-gray-500">{req.donorEmail}</p>
+                                                </div>
+                                            ) : "-"}
+                                        </td>
+
+                                        {/* Actions */}
+                                        <td className="space-x-1">
+                                            <Link
+                                                to={`/donation-request/${req._id}`}
+                                                className="btn btn-xs bg-[#435585] text-white hover:bg-[#2f3d6b]"
+                                            >
+                                                View
+                                            </Link>
+
+                                            <Link
+                                                to={`/dashboard/edit-donation/${req._id}`}
+                                                className="btn btn-xs bg-[#6f4dbf] text-white hover:bg-[#5a3f9a]"
+                                            >
+                                                Edit
+                                            </Link>
+
+                                            <button
+                                                onClick={() => handleDelete(req._id)}
+                                                className="btn btn-xs bg-red-600 text-white hover:bg-red-700"
+                                            >
+                                                Delete
+                                            </button>
+
+                                            {req.status === "inprogress" && (
+                                                <>
+                                                    <button
+                                                        onClick={() => handleStatusUpdate(req._id, "done")}
+                                                        className="btn btn-xs bg-green-600 text-white hover:bg-green-700"
+                                                    >
+                                                        Done
+                                                    </button>
+                                                    <button
+                                                        onClick={() => handleStatusUpdate(req._id, "canceled")}
+                                                        className="btn btn-xs bg-gray-200 text-gray-700 hover:bg-gray-300"
+                                                    >
+                                                        Cancel
+                                                    </button>
+                                                </>
+                                            )}
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    {/* View All Button */}
+                    <div className="text-center mt-4">
+                        <Link
+                            to="/dashboard/my-donation-request"
+                            className="btn btn-outline border-[#435585] text-[#435585] hover:bg-[#435585] hover:text-white"
+                        >
+                            View My All Requests
+                        </Link>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
