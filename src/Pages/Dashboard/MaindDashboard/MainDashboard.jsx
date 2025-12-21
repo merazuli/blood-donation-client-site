@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../../provider/AuthProvider';
 import useAxiosSecure from '../AddRequests/Hooks/useAxiosSecure';
-import { Link, useNavigate } from 'react-router';
+import { Link } from 'react-router';
 
 const MainDashboard = () => {
     const { user } = useContext(AuthContext);
     const [myRequests, setMyRequests] = useState([]);
     const axiosSecure = useAxiosSecure();
-    const navigate = useNavigate();
+
 
     useEffect(() => {
         axiosSecure.get('/my-requests')

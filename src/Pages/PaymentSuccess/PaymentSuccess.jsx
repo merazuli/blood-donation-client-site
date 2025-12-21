@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSearchParams } from 'react-router';
+import useAxios from '../Dashboard/AddRequests/Hooks/useAxios';
 
 const PaymentSuccess = () => {
     const [searchParams] = useSearchParams();
     const sessionId = searchParams.get('session_id');
-    console.log(sessionId)
+    const axiosInstance = useAxios();
+
+    useEffect(() => {
+        axiosInstance.post(`/success-payment?session_id=${sessionId}`)
+            .then(res => {
+                console.log(res.data)
+            })
+    }, [sessionId, axiosInstance])
     return (
         <div>
             success
