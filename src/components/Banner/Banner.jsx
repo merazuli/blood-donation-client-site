@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Banner = () => {
     return (
-        <div className=" mt-10 bg-gradient-to-r from-[#8B0000] to-[#B22222] text-white">
+        <div className="mt-10 bg-gradient-to-r from-red-800 to-red-600 text-white">
             <div className="max-w-7xl mx-auto px-4 py-20 text-center">
 
                 {/* Heading */}

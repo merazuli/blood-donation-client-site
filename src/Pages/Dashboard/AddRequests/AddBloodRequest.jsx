@@ -42,7 +42,7 @@ const AddBloodRequest = () => {
 
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-100 via-pink-100 to-red-100 p-6">
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-100 via-pink-100 to-red-100 px-6">
             <div className="w-full max-w-3xl bg-white rounded-3xl shadow-2xl p-8 border border-purple-200">
                 <h1 className="text-3xl font-bold text-center text-purple-700 mb-6">Blood Donation Request Form</h1>
                 <form onSubmit={handleSubmit} className="space-y-4">
