@@ -4,7 +4,7 @@ import { HeartHandshake, Phone, Mail, MapPin } from "lucide-react";
 
 const Footer = () => {
     return (
-        <footer className="bg-gradient-to-r from-red-800 to-red-600 text-white mt-16">
+        <footer className="bg-gradient-to-r from-indigo-800 to-red-900 text-white mt-16">
             <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-4 gap-8">
 
                 {/* ===== Brand / About ===== */}

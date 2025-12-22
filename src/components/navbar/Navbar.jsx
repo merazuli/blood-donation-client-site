@@ -46,12 +46,17 @@ const Navbar = () => {
                         <NavLink className='font-semibold' to="/">Home</NavLink>
                         <NavLink className='font-semibold' to="/all-request">All Requests</NavLink>
                         <NavLink className='font-semibold' to="/search">Search</NavLink>
+                        <NavLink className='font-semibold' to="/dashboard">Dashboard</NavLink>
 
                     </ul>
                 </div>
-                <a className="lg:text-4xl text-3xl font-bold bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent">
-                    PawMART
+                <a className="lg:text-4xl text-3xl font-bold 
+bg-gradient-to-r from-indigo-500 via-sky-500 to-cyan-500 
+bg-clip-text text-transparent tracking-wide">
+                    BloodLink
                 </a>
+
+
 
             </div>
             <div className="navbar-center hidden lg:flex">
@@ -59,12 +64,14 @@ const Navbar = () => {
                     <NavLink className='font-semibold' to="/">Home</NavLink>
                     <NavLink className='font-semibold' to="/all-request">All Requests</NavLink>
                     <NavLink className='font-semibold' to="/search">Search</NavLink>
+                    <NavLink className='font-semibold' to="/dashboard">Dashboard</NavLink>
+
 
 
                 </ul>
             </div>
             <div className="navbar-end gap-5">
-                <Link to={'/dashboard'} className='btn'>Dashboard</Link>
+                {/* <Link to={'/dashboard'} className='btn sm:block'>Dashboard</Link> */}
                 <label className="flex cursor-pointer gap-2">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -102,7 +109,7 @@ const Navbar = () => {
                 />
 
 
-                {user ? <button onClick={handleLogout} className='btn'>Log Out</button> : <Link to="/login" className='btn'>Login</Link>}
+                {user ? <button onClick={handleLogout} className='btn bg-indigo-500 hover:bg-indigo-700 text-white'>Log Out</button> : <Link to="/login" className='btn bg-green-500 hover:bg-green-700'>Login</Link>}
 
 
             </div>

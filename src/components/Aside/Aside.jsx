@@ -51,6 +51,7 @@ const Aside = () => {
 
             {/* Menu */}
             <ul className="menu p-4 flex-1 gap-1 text-white">
+
                 <li>
                     <NavLink
                         to="/dashboard"
@@ -90,6 +91,7 @@ const Aside = () => {
                 </li>
 
 
+
                 <li>
                     <NavLink
                         to="/dashboard/my-donation-request"
@@ -101,7 +103,16 @@ const Aside = () => {
                         My Blood Requests
                     </NavLink>
                 </li>
-
+                <li>
+                    <NavLink
+                        to="/"
+                        className={({ isActive }) =>
+                            `${navItem} ${isActive ? activeItem : "hover:bg-purple-600"}`
+                        }
+                    >
+                        Back To Home
+                    </NavLink>
+                </li>
             </ul>
 
             {/* Logout */}

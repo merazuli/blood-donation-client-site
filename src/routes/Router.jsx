@@ -13,6 +13,9 @@ import Donate from "../Pages/Donate/Donate";
 import PaymentSuccess from "../Pages/PaymentSuccess/PaymentSuccess";
 import PaymentCancelled from "../Pages/PaymentCancell/PaymentCancelled";
 import SearchRequest from "../Pages/Search/SearchRequest";
+import Error from "../Pages/Error";
+import AllRequests from "../Pages/AllRequests";
+import DetailsPage from "../Pages/DetailsPage";
 
 
 
@@ -40,6 +43,14 @@ const router = createBrowserRouter([
             {
                 path: '/search',
                 Component: SearchRequest,
+            },
+            {
+                path: '/all-request',
+                element: <AllRequests></AllRequests>,
+            },
+            {
+                path: '/view-details',
+                element: <PrivateRoute><DetailsPage></DetailsPage></PrivateRoute>,
             },
             {
                 path: '/payment-success',
@@ -73,6 +84,10 @@ const router = createBrowserRouter([
             }
         ]
     },
+    {
+        path: '*',
+        element: <Error></Error>
+    }
 
 ]);
 
