@@ -12,6 +12,7 @@ import AllUsers from "../Pages/User/AllUsers";
 import Donate from "../Pages/Donate/Donate";
 import PaymentSuccess from "../Pages/PaymentSuccess/PaymentSuccess";
 import PaymentCancelled from "../Pages/PaymentCancell/PaymentCancelled";
+import SearchRequest from "../Pages/Search/SearchRequest";
 
 
 
@@ -34,7 +35,11 @@ const router = createBrowserRouter([
             },
             {
                 path: '/donate',
-                Component: Donate,
+                element: <PrivateRoute><Donate></Donate></PrivateRoute>,
+            },
+            {
+                path: '/search',
+                Component: SearchRequest,
             },
             {
                 path: '/payment-success',

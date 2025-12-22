@@ -17,17 +17,17 @@ const MainDashboard = () => {
     }, [axiosSecure]);
 
     const handleDelete = (id) => {
-        // Delete logic here
+
     };
 
     const handleStatusUpdate = (id, status) => {
-        // Status update logic here
+
     };
 
     return (
         <div className="p-6 bg-gray-50 min-h-screen">
             {/* Welcome Section */}
-            <div className="mb-6">
+            <div className="mb-6 text-center md:text-left">
                 <h1 className="text-2xl font-bold text-[#435585]">
                     Welcome, {user?.displayName} 👋
                 </h1>
@@ -43,7 +43,8 @@ const MainDashboard = () => {
                         My Recent Donation Requests
                     </h2>
 
-                    <div className="overflow-x-auto">
+                    {/* Desktop Table */}
+                    <div className="hidden md:block overflow-x-auto">
                         <table className="table w-full">
                             <thead className="bg-[#435585] text-white">
                                 <tr>
@@ -57,9 +58,8 @@ const MainDashboard = () => {
                                     <th>Actions</th>
                                 </tr>
                             </thead>
-
                             <tbody>
-                                {myRequests.map(req => (
+                                {myRequests.map((req) => (
                                     <tr key={req._id} className="hover:bg-gray-100">
                                         <td>{req.recipientName}</td>
                                         <td>{req.recipientDistrict}, {req.recipientUpazila}</td>
@@ -70,19 +70,18 @@ const MainDashboard = () => {
                                                 {req.bloodGroup}
                                             </span>
                                         </td>
-
                                         <td>
-                                            <span className={`px-2 py-1 rounded-full text-sm font-semibold
-                                                ${req.status === "pending" ? "bg-yellow-100 text-yellow-700" : ""}
-                                                ${req.status === "inprogress" ? "bg-blue-100 text-blue-700" : ""}
-                                                ${req.status === "done" ? "bg-green-100 text-green-700" : ""}
-                                                ${req.status === "canceled" ? "bg-red-100 text-red-700" : ""}
-                                            `}>
+                                            <span
+                                                className={`px-2 py-1 rounded-full text-sm font-semibold
+                      ${req.status === "pending" ? "bg-yellow-100 text-yellow-700" : ""}
+                      ${req.status === "inprogress" ? "bg-blue-100 text-blue-700" : ""}
+                      ${req.status === "done" ? "bg-green-100 text-green-700" : ""}
+                      ${req.status === "canceled" ? "bg-red-100 text-red-700" : ""}
+                    `}
+                                            >
                                                 {req.status}
                                             </span>
                                         </td>
-
-                                        {/* Donor Info */}
                                         <td>
                                             {req.status === "inprogress" ? (
                                                 <div>
@@ -91,30 +90,25 @@ const MainDashboard = () => {
                                                 </div>
                                             ) : "-"}
                                         </td>
-
-                                        {/* Actions */}
-                                        <td className="space-x-1">
+                                        <td className="flex flex-wrap gap-1">
                                             <Link
                                                 to={`/donation-request/${req._id}`}
                                                 className="btn btn-xs bg-[#435585] text-white hover:bg-[#2f3d6b]"
                                             >
                                                 View
                                             </Link>
-
                                             <Link
                                                 to={`/dashboard/edit-donation/${req._id}`}
                                                 className="btn btn-xs bg-[#6f4dbf] text-white hover:bg-[#5a3f9a]"
                                             >
                                                 Edit
                                             </Link>
-
                                             <button
                                                 onClick={() => handleDelete(req._id)}
                                                 className="btn btn-xs bg-red-600 text-white hover:bg-red-700"
                                             >
                                                 Delete
                                             </button>
-
                                             {req.status === "inprogress" && (
                                                 <>
                                                     <button
@@ -138,6 +132,54 @@ const MainDashboard = () => {
                         </table>
                     </div>
 
+                    {/* Mobile Card View */}
+                    <div className="md:hidden space-y-4">
+                        {myRequests.map((req) => (
+                            <div
+                                key={req._id}
+                                className="bg-white shadow rounded-lg p-4 border"
+                            >
+                                <div className="flex justify-between items-center mb-2">
+                                    <span className="font-semibold text-sm text-gray-500">{req.recipientName}</span>
+                                    <span className={`px-2 py-1 rounded-full text-xs font-semibold
+                ${req.status === "pending" ? "bg-yellow-100 text-yellow-700" : ""}
+                ${req.status === "inprogress" ? "bg-blue-100 text-blue-700" : ""}
+                ${req.status === "done" ? "bg-green-100 text-green-700" : ""}
+                ${req.status === "canceled" ? "bg-red-100 text-red-700" : ""}
+              `}>
+                                        {req.status}
+                                    </span>
+                                </div>
+
+                                <p className="text-sm"><span className="font-medium">Location:</span> {req.recipientDistrict}, {req.recipientUpazila}</p>
+                                <p className="text-sm"><span className="font-medium">Date:</span> {req.donationDate}</p>
+                                <p className="text-sm"><span className="font-medium">Time:</span> {req.donationTime}</p>
+                                <p className="text-sm">
+                                    <span className="font-medium">Blood:</span>{" "}
+                                    <span className="px-2 py-1 rounded-full bg-red-100 text-red-600 font-semibold text-sm">
+                                        {req.bloodGroup}
+                                    </span>
+                                </p>
+
+                                {/* Mobile Actions */}
+                                <div className="flex flex-wrap gap-2 mt-3">
+                                    <Link
+                                        to={`/donation-request/${req._id}`}
+                                        className="btn btn-sm w-full bg-[#435585] text-white hover:bg-[#2f3d6b]"
+                                    >
+                                        View
+                                    </Link>
+                                    <Link
+                                        to={`/dashboard/edit-donation/${req._id}`}
+                                        className="btn btn-sm w-full bg-[#6f4dbf] text-white hover:bg-[#5a3f9a]"
+                                    >
+                                        Edit
+                                    </Link>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
                     {/* View All Button */}
                     <div className="text-center mt-4">
                         <Link
@@ -150,6 +192,7 @@ const MainDashboard = () => {
                 </div>
             )}
         </div>
+
     );
 };
 
