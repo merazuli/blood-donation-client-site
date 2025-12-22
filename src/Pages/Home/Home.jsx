@@ -4,7 +4,7 @@ import FeaturedSection from '../../components/Feature/FeaturedSection';
 import ContactUs from '../../components/Contact/ContactUs';
 import Footer from '../../components/footer/Footer';
 
-const Home = () => {
+const HomePage = () => {
     return (
         <div>
             <title>Blood-donation - Home</title>
@@ -16,4 +16,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default HomePage;
