@@ -11,7 +11,7 @@ const Footer = () => {
                 <div>
                     <h2 className="text-2xl font-bold flex items-center gap-2">
                         <HeartHandshake className="w-6 h-6" />
-                        LifeDrop
+                        BloodLink
                     </h2>
                     <p className="text-sm mt-3 text-red-100">
                         LifeDrop is a blood donation platform that connects

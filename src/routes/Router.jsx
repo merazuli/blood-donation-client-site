@@ -45,11 +45,11 @@ const router = createBrowserRouter([
                 Component: SearchRequest,
             },
             {
-                path: '/all-request',
+                path: '/all-requests',
                 element: <AllRequests></AllRequests>,
             },
             {
-                path: '/view-details',
+                path: '/view-details/:id',
                 element: <PrivateRoute><DetailsPage></DetailsPage></PrivateRoute>,
             },
             {

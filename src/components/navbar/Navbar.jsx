@@ -62,7 +62,7 @@ bg-clip-text text-transparent tracking-wide">
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal flex gap-10  px-1">
                     <NavLink className='font-semibold' to="/">Home</NavLink>
-                    <NavLink className='font-semibold' to="/all-request">All Requests</NavLink>
+                    <NavLink className='font-semibold' to="/all-requests">All Requests</NavLink>
                     <NavLink className='font-semibold' to="/search">Search</NavLink>
                     <NavLink className='font-semibold' to="/dashboard">Dashboard</NavLink>
 

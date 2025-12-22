@@ -1,17 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import useAxios from './Dashboard/AddRequests/Hooks/useAxios';
 import { Droplet } from 'lucide-react';
 import { Link } from 'react-router';
+import { AuthContext } from '../provider/AuthProvider';
 
 const AllRequests = () => {
     const axiosInstance = useAxios();
     const [allRequests, setAllRequests] = useState([]);
+    const { loading } = useContext(AuthContext);
+
 
     useEffect(() => {
         axiosInstance.get('/all-requests')
             .then(res => setAllRequests(res.data))
             .catch(err => console.error(err));
     }, [axiosInstance]);
+    if (loading) {
+        return <p>Loading.......</p>
+    }
 
     return (
         <div className="min-h-screen max-w-11/12 mx-auto bg-gray-50 p-6">
@@ -41,7 +47,10 @@ const AllRequests = () => {
                             <p className="text-gray-600 mb-4">
                                 <span className="font-medium">Time:</span> {req.donationTime}
                             </p>
-                            <Link className="mt-auto text-center bg-indigo-600 text-white py-2 rounded-lg hover:bg-[#2f3d6b] transition">
+                            <p className="text-gray-600 mb-4">
+                                <span className="font-medium">Status:</span> <span className='text-yellow-700 font-bold'>{req.status}</span>
+                            </p>
+                            <Link to={`/view-details/${req?._id}`} className="mt-auto text-center bg-indigo-600 text-white py-2 rounded-lg hover:bg-[#2f3d6b] transition">
                                 View Details
                             </Link>
                         </div>
