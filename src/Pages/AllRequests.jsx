@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import useAxios from './Dashboard/AddRequests/Hooks/useAxios';
 import { Droplet } from 'lucide-react';
 import { Link } from 'react-router';
@@ -7,17 +7,12 @@ import { AuthContext } from '../provider/AuthProvider';
 const AllRequests = () => {
     const axiosInstance = useAxios();
     const [allRequests, setAllRequests] = useState([]);
-    const { loading } = useContext(AuthContext);
-
-
     useEffect(() => {
         axiosInstance.get('/all-requests')
             .then(res => setAllRequests(res.data))
             .catch(err => console.error(err));
     }, [axiosInstance]);
-    if (loading) {
-        return <p>Loading.......</p>
-    }
+
 
     return (
         <div className="min-h-screen max-w-11/12 mx-auto bg-gray-50 p-6">

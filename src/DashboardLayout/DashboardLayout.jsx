@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Outlet } from "react-router";
 import Aside from "../components/Aside/Aside";
 import { Menu } from "lucide-react";
-import Navbar from "../components/navbar/Navbar";
+
 
 const DashboardLayout = () => {
     const [open, setOpen] = useState(false);
